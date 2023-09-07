@@ -36,7 +36,7 @@ public class CarService {
         return carRepository.findAll().stream().filter(car -> car.isRegistrationKz()).toList();
     }
 
-    public List<Car> getNonRegisteredCars(){
+    public List<Car> getUnRegisteredCars(){
         return carRepository.findAll().stream().filter(car -> !car.isRegistrationKz()).toList();
     }
 }

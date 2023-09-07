@@ -17,6 +17,17 @@ public class CarController {
         return carService.getAllCars();
     }
 
+    @GetMapping(value = "/registeredInKz")
+    public List<Car> getRegisteredCars(){
+        return carService.getRegisteredCars();
+    }
+
+    @GetMapping(value = "/unRegisteredInKz")
+    public List<Car> getNoRegisteredCars(){
+        return carService.getUnRegisteredCars();
+    }
+
+
     @GetMapping("{id}")
     public Car getCar(@PathVariable Long id){
         return carService.getCar(id);
