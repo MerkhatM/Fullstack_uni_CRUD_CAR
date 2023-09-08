@@ -1,6 +1,7 @@
 package com.example.CRUD.Fullstack.controllers;
 
 import com.example.CRUD.Fullstack.models.Car;
+import com.example.CRUD.Fullstack.repositories.CarRepository;
 import com.example.CRUD.Fullstack.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import java.util.List;
 public class CarController {
     @Autowired
     private CarService carService;
+    @Autowired
+    private CarRepository carRepository;
     @GetMapping
     public List<Car> getAllCars(){
         return carService.getAllCars();
@@ -25,6 +28,11 @@ public class CarController {
     @GetMapping(value = "/unRegisteredInKz")
     public List<Car> getNoRegisteredCars(){
         return carService.getUnRegisteredCars();
+    }
+
+    @GetMapping(value = "/search")
+    public List<Car> searchCars(@RequestParam(name = "search",required = false,defaultValue = "") String search){
+        return carRepository.search(search);
     }
 
 

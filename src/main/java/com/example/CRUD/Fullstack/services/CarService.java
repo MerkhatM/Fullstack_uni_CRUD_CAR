@@ -5,6 +5,7 @@ import com.example.CRUD.Fullstack.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -13,7 +14,7 @@ public class CarService {
     private CarRepository carRepository;
 
     public List<Car> getAllCars(){
-        return carRepository.findAll();
+        return carRepository.findAll().stream().sorted(Comparator.comparing(Car::getId)).toList();
     }
 
     public Car getCar(Long id){
