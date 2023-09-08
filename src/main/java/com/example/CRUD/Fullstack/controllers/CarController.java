@@ -15,44 +15,50 @@ public class CarController {
     private CarService carService;
     @Autowired
     private CarRepository carRepository;
+
     @GetMapping
-    public List<Car> getAllCars(){
+    public List<Car> getAllCars() {
         return carService.getAllCars();
     }
 
     @GetMapping(value = "/registeredInKz")
-    public List<Car> getRegisteredCars(){
+    public List<Car> getRegisteredCars() {
         return carService.getRegisteredCars();
     }
 
     @GetMapping(value = "/unRegisteredInKz")
-    public List<Car> getNoRegisteredCars(){
+    public List<Car> getNoRegisteredCars() {
         return carService.getUnRegisteredCars();
     }
 
     @GetMapping(value = "/search")
-    public List<Car> searchCars(@RequestParam(name = "search",required = false,defaultValue = "") String search){
+    public List<Car> searchCars(@RequestParam(name = "search", required = false, defaultValue = "") String search) {
         return carRepository.search(search);
     }
 
+    @GetMapping(value = "/rangeYear")
+    public List<Car> findByRangeYear(@RequestParam(name = "startYear", required = false, defaultValue = "") String startYear,
+                                     @RequestParam(name = "endYear", required = false, defaultValue = "") String endYear) {
+        return carRepository.findByYearBetween(Integer.parseInt(startYear), Integer.parseInt(endYear));
+    }
 
     @GetMapping("{id}")
-    public Car getCar(@PathVariable Long id){
+    public Car getCar(@PathVariable Long id) {
         return carService.getCar(id);
     }
 
     @PostMapping
-    public void addCar(@RequestBody Car car){
+    public void addCar(@RequestBody Car car) {
         carService.addCar(car);
     }
 
     @PutMapping
-    public void editCar(@RequestBody Car car){
+    public void editCar(@RequestBody Car car) {
         carService.editCar(car);
     }
 
     @DeleteMapping("{id}")
-    public void deleteCar(@PathVariable Long id){
+    public void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }
 

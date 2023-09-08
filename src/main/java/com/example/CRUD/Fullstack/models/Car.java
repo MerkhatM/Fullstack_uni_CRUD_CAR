@@ -23,5 +23,4 @@ public class Car {
     private boolean registrationKz;
 
 
-
 }

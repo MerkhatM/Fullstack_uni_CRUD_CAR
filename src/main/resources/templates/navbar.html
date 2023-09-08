@@ -1,26 +1,32 @@
 <nav class="navbar navbar-expand-lg " style="background-color: #184927">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="color: white">CRM Система</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/" style="color: whitesmoke">All cars</a>
+                    <a aria-current="page" class="nav-link active" href="/" style="color: whitesmoke">All cars</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: whitesmoke" id="registeredInKz">Registered Cars</a>
+                    <a class="nav-link" href="#" id="registeredInKz" style="color: whitesmoke">Registered Cars</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: whitesmoke" id="unRegisteredInKz">Unregistered Cars</a>
+                    <a class="nav-link" href="#" id="unRegisteredInKz" style="color: whitesmoke">Unregistered Cars</a>
                 </li>
+                <li>
+                    <div class="d-flex">
+                        <a class="nav-link ml-2" href="#" style="color: whitesmoke">Year Range:</a>
+                        <input class="form-control me-2 ml-2" id="startYear" name="startYear"
+                               placeholder="startYear:" style="width: 100px" type="number">
+                        <input class="form-control me-2" id="endYear" name="endYear" placeholder="endYear:"
+                               style="width: 100px" type="number">
+                        <button class="btn btn-outline-success" id="filterByRangeYear">Filter</button>
 
+                    </div>
+                </li>
             </ul>
 
-                <input style="width: 150px" class="form-control me-2" type="search" placeholder="Search" id="search" name="search" aria-label="Search">
-                <button class="btn btn-outline-success"  id="searchBtn">Search</button>
+            <input aria-label="Search" class="form-control me-2" id="search" name="search" placeholder="Search"
+                   style="width: 150px" type="search">
+            <button class="btn btn-outline-success" id="searchBtn">Search</button>
 
         </div>
     </div>

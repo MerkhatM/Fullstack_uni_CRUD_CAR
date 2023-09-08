@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car,Long> {
+public interface CarRepository extends JpaRepository<Car, Long> {
     @Query("select c from Car c "
-            +"where c.mark ilike  concat('%',:search,'%') "
-            +"or c.model ilike concat('%',:search,'%') "
-            +"or cast(c.year as string ) = :search ")
+            + "where c.mark ilike  concat('%',:search,'%') "
+            + "or c.model ilike concat('%',:search,'%') "
+            + "or cast(c.year as string ) = :search ")
     List<Car> search(String search);
+
+    List<Car> findByYearBetween(int startYear, int endYear);
 }

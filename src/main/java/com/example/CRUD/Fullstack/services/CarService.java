@@ -13,31 +13,31 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
-    public List<Car> getAllCars(){
+    public List<Car> getAllCars() {
         return carRepository.findAll().stream().sorted(Comparator.comparing(Car::getId)).toList();
     }
 
-    public Car getCar(Long id){
+    public Car getCar(Long id) {
         return carRepository.findById(id).orElse(null);
     }
 
-    public void addCar(Car car){
+    public void addCar(Car car) {
         carRepository.save(car);
     }
 
-    public void editCar(Car car){
+    public void editCar(Car car) {
         carRepository.save(car);
     }
 
-    public void deleteCar(Long id){
+    public void deleteCar(Long id) {
         carRepository.deleteById(id);
     }
 
-    public List<Car> getRegisteredCars(){
+    public List<Car> getRegisteredCars() {
         return carRepository.findAll().stream().filter(car -> car.isRegistrationKz()).toList();
     }
 
-    public List<Car> getUnRegisteredCars(){
+    public List<Car> getUnRegisteredCars() {
         return carRepository.findAll().stream().filter(car -> !car.isRegistrationKz()).toList();
     }
 }
