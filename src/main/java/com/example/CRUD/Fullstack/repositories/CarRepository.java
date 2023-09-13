@@ -10,10 +10,11 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
     @Query("select c from Car c "
-            + "where c.mark ilike  concat('%',:search,'%') "
+            + "where (c.mark ilike  concat('%',:search,'%') "
             + "or c.model ilike concat('%',:search,'%') "
-            + "or cast(c.year as string ) = :search ")
-    List<Car> search(String search);
+            + "or cast(c.year as string ) = :search) "
+            + "and (c.year between :startYear and :endYear)")
+    List<Car> search(String search, int startYear, int endYear);
 
-    List<Car> findByYearBetween(int startYear, int endYear);
+
 }

@@ -32,15 +32,12 @@ public class CarController {
     }
 
     @GetMapping(value = "/search")
-    public List<Car> searchCars(@RequestParam(name = "search", required = false, defaultValue = "") String search) {
-        return carRepository.search(search);
+    public List<Car> searchCars(@RequestParam(name = "search", required = false, defaultValue = "") String search,
+                                @RequestParam(name = "startYear", required = false, defaultValue = "1965") String startYear,
+                                @RequestParam(name = "endYear", required = false, defaultValue = "2023") String endYear) {
+        return carRepository.search(search, Integer.parseInt(startYear), Integer.parseInt(endYear));
     }
 
-    @GetMapping(value = "/rangeYear")
-    public List<Car> findByRangeYear(@RequestParam(name = "startYear", required = false, defaultValue = "") String startYear,
-                                     @RequestParam(name = "endYear", required = false, defaultValue = "") String endYear) {
-        return carRepository.findByYearBetween(Integer.parseInt(startYear), Integer.parseInt(endYear));
-    }
 
     @GetMapping("{id}")
     public Car getCar(@PathVariable Long id) {

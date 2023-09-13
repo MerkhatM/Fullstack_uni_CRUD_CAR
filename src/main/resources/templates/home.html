@@ -127,40 +127,11 @@
 
     function searchCars() {
         let dataCar = "";
-        let searchInp = document.getElementById("search").value
-        let httpRequest = new XMLHttpRequest;
-        httpRequest.open("GET", "http://localhost:8090/cars/search?search=" + searchInp, true);
-        httpRequest.send()
-        httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                let cars = JSON.parse(httpRequest.responseText);
-                for (let i = 0; i < cars.length; i++) {
-                    dataCar += "<tr>"
-                    dataCar += "<td>" + cars[i].id + "</td>"
-                    dataCar += "<td>" + cars[i].mark + "</td>"
-                    dataCar += "<td>" + cars[i].model + "</td>"
-                    dataCar += "<td>" + cars[i].year + "</td>"
-                    dataCar += "<td>" + cars[i].color + "</td>"
-                    dataCar += "<td>" + cars[i].registrationKz + "</td>"
-                    dataCar += "<td><button class='btn btn-info' onclick='detailsCar(" + cars[i].id + ")'>DETAILS</button>"
-                    dataCar += "<td><button class='btn btn-danger' onclick='deleteCar(" + cars[i].id + ")'>DELETE</button>"
-                    dataCar += "</tr>"
-                }
-
-                document.getElementById('allCars').innerHTML = dataCar;
-            }
-        }
-    }
-
-
-    document.getElementById('filterByRangeYear').addEventListener('click', findByRangeYear);
-
-    function findByRangeYear() {
-        let dataCar = "";
         let startYear = document.getElementById("startYear").value
         let endYear = document.getElementById("endYear").value
+        let searchInp = document.getElementById("search").value
         let httpRequest = new XMLHttpRequest;
-        httpRequest.open("GET", "http://localhost:8090/cars/rangeYear?startYear=" + startYear + "&endYear=" + endYear, true);
+        httpRequest.open("GET", "http://localhost:8090/cars/search?search=" + searchInp + "&startYear=" + startYear + "&endYear=" + endYear, true);
         httpRequest.send()
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
@@ -182,6 +153,9 @@
             }
         }
     }
+
+
+    document.getElementById('filterByRangeYear').addEventListener('click', searchCars);
 
 
     function addCar() {
