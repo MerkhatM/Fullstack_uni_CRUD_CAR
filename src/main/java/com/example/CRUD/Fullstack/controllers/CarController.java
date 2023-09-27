@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http:://localhost:3000")
 @RequestMapping("/cars")
 public class CarController {
     @Autowired
@@ -49,9 +50,9 @@ public class CarController {
         carService.addCar(car);
     }
 
-    @PutMapping
-    public void editCar(@RequestBody Car car) {
-        carService.editCar(car);
+    @PutMapping("{id}")
+    public void editCar(@RequestBody Car car,@PathVariable Long id) {
+        carService.editCar(car,id);
     }
 
     @DeleteMapping("{id}")

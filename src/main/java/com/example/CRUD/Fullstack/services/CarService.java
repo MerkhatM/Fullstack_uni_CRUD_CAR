@@ -25,7 +25,14 @@ public class CarService {
         carRepository.save(car);
     }
 
-    public void editCar(Car car) {
+    public void editCar(Car newCar,Long id) {
+        Car car=carRepository.findById(id).orElse(null);
+        car.setId(newCar.getId());
+        car.setMark(newCar.getMark());
+        car.setModel(newCar.getModel());
+        car.setYear(newCar.getYear());
+        car.setColor(newCar.getColor());
+        car.setRegistrationKz(newCar.isRegistrationKz());
         carRepository.save(car);
     }
 
