@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("http:://localhost:3000")
-@RequestMapping("/companies")
+@RequestMapping("/countries")
 public class CountryController {
     @Autowired
     private CountryService countryService;

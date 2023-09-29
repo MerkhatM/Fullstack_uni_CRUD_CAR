@@ -18,7 +18,6 @@ public class Country {
     private Long id;
     private String name;
     private String shortName;
-    @ManyToOne
-    private Car car;
+
 
 }

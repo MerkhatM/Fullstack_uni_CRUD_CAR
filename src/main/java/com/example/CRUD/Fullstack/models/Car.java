@@ -25,6 +25,7 @@ public class Car {
     private boolean registrationKz;
     @ManyToMany
     private List<Category> categories;
-
+    @ManyToOne
+    private Country country;
 
 }
