@@ -1,0 +1,69 @@
+package com.example.auth_service.services;
+
+
+
+import com.example.Security_project.models.Role;
+import com.example.Security_project.models.User;
+import com.example.Security_project.repositories.RoleRepository;
+import com.example.Security_project.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
+
+
+public class UserService implements UserDetailsService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user =userRepository.findByEmail(email );
+        if(user==null){
+            throw new UsernameNotFoundException("USER NOT FOUND!");
+        }
+        return user;
+    }
+
+    public String addUser(User newUser,String rePassword){
+        User checkUser =userRepository.findByEmail(newUser.getEmail());
+        if(checkUser!=null)
+            return "sign-up?emailError";
+        if(!newUser.getPassword().equals(rePassword))
+            return "sign-up?passwordError";
+        newUser.setPassword(passwordEncoder.encode(rePassword));
+        Role role=roleRepository.findRoleUser();
+        newUser.setRoles(List.of(role));
+        userRepository.save(newUser);
+        return "sign-in?success";
+    }
+
+    public User getCurrentUser(){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        if(authentication instanceof AnonymousAuthenticationToken)
+            return null;
+        return (User) authentication.getPrincipal();
+    }
+
+    public String changePassword(String currentPassword,String newPassword,String reNewPassword){
+        User user =getCurrentUser();
+        if(!passwordEncoder.matches(currentPassword,user.getPassword())){
+            return "profile?currentPasswordError";
+        }
+        if(!newPassword.equals(reNewPassword)){
+            return "profile?passwordsError";
+        }
+        return "profile?success";
+    }
+}

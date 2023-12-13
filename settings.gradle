@@ -1,2 +1,4 @@
 rootProject.name = 'CRUD-Fullstack'
 includeBuild 'eureka-server'
+includeBuild 'eureka-client'
+includeBuild 'api-gateway'
