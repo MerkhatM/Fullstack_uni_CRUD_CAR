@@ -1,7 +1,8 @@
 package com.example.auth_service.config;
 
 
-import com.example.Security_project.services.UserService;
+
+import com.example.auth_service.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

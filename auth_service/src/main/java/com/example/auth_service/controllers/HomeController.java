@@ -1,7 +1,8 @@
 package com.example.auth_service.controllers;
 
-import com.example.Security_project.models.User;
-import com.example.Security_project.services.UserService;
+
+import com.example.auth_service.models.User;
+import com.example.auth_service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

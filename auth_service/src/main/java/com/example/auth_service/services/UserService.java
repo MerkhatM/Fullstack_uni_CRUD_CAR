@@ -2,10 +2,11 @@ package com.example.auth_service.services;
 
 
 
-import com.example.Security_project.models.Role;
-import com.example.Security_project.models.User;
-import com.example.Security_project.repositories.RoleRepository;
-import com.example.Security_project.repositories.UserRepository;
+
+import com.example.auth_service.models.Role;
+import com.example.auth_service.models.User;
+import com.example.auth_service.repositories.RoleRepository;
+import com.example.auth_service.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

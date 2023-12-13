@@ -1,6 +1,7 @@
 package com.example.auth_service.repositories;
 
-import com.example.Security_project.models.Role;
+
+import com.example.auth_service.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
