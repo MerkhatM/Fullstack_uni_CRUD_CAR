@@ -20,11 +20,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String email;
-    String password;
-    String fullname;
+    private String email;
+    private String password;
+    private String fullname;
     @ManyToMany(fetch = FetchType.EAGER)
-    List<Role> roles;
+    private List<Role> roles;
 
 
     @Override

@@ -3,6 +3,10 @@ package com.example.auth_service.services;
 
 
 
+import com.example.auth_service.dto.UserCreate;
+import com.example.auth_service.dto.UserUpdate;
+import com.example.auth_service.dto.UserView;
+import com.example.auth_service.mapper.UserMapper;
 import com.example.auth_service.models.Role;
 import com.example.auth_service.models.User;
 import com.example.auth_service.repositories.RoleRepository;
@@ -37,17 +41,17 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public String addUser(User newUser,String rePassword){
-        User checkUser =userRepository.findByEmail(newUser.getEmail());
+    public UserView addUser(UserCreate userCreate){
+        User checkUser =userRepository.findByEmail(userCreate.getEmail());
         if(checkUser!=null)
-            return "sign-up?emailError";
-        if(!newUser.getPassword().equals(rePassword))
-            return "sign-up?passwordError";
-        newUser.setPassword(passwordEncoder.encode(rePassword));
+            return null;
+        if(!userCreate.getPassword().equals(userCreate.getRePassword()))
+            return null;
+        User user = UserMapper.INSTANCE.toEntity(userCreate);
+        user.setPassword(passwordEncoder.encode(userCreate.getRePassword()));
         Role role=roleRepository.findRoleUser();
-        newUser.setRoles(List.of(role));
-        userRepository.save(newUser);
-        return "sign-in?success";
+        user.setRoles(List.of(role));
+        return UserMapper.INSTANCE.toView(userRepository.save(user));
     }
 
     public User getCurrentUser(){
@@ -57,14 +61,27 @@ public class UserService implements UserDetailsService {
         return (User) authentication.getPrincipal();
     }
 
-    public String changePassword(String currentPassword,String newPassword,String reNewPassword){
-        User user =getCurrentUser();
-        if(!passwordEncoder.matches(currentPassword,user.getPassword())){
-            return "profile?currentPasswordError";
+    public User editUser(UserUpdate userUpdate){
+        User currentUser =getCurrentUser();
+        if(!passwordEncoder.matches(userUpdate.getPassword(),currentUser.getPassword())){
+            return null;
         }
-        if(!newPassword.equals(reNewPassword)){
-            return "profile?passwordsError";
+        if(!userUpdate.getNewPassword().equals(userUpdate.getReNewPassword())){
+            return null;
         }
-        return "profile?success";
+        User user = UserMapper.INSTANCE.toEntity(userUpdate);
+        user.setPassword(passwordEncoder.encode(userUpdate.getNewPassword()));
+        return userRepository.save(user);
+    }
+
+
+    public UserView getUserById(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        UserView userView = UserMapper.INSTANCE.toView(user);
+        return userView;
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
